@@ -1,1 +1,2 @@
 # DentalOffice
+Aplikacija napravljena uz pomoć Spring-a i React-a. Podaci o pregledima se čuvaju u JSON formatu koji se čuvaju u fajlu ./DentalOffice/appointments.json . ID lekara se nalazi u fajlu ./DentalOffice/dentistId.txt koji je: <b>123456789</b>

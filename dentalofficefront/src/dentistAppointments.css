@@ -1,0 +1,10 @@
+.containerDentistDiv{
+    width:50%; 
+    margin-top: 50px;
+}
+
+.calendarDiv{
+    max-height: 500px;
+    width: 100%;
+    overflow: auto;
+}

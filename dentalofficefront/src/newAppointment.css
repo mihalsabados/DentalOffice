@@ -1,0 +1,29 @@
+.containerDiv{
+    width: 400px;
+    padding: 30px;
+    background-color: rgba(216, 220, 221, 0.9);
+    margin: 5% auto;
+    border: 5px solid black;
+    border-radius: 10px;
+}
+
+.buttonDiv{
+    display: block;
+
+}
+
+.formDiv{
+    margin:0px auto;
+    width: 180px;
+    padding: 20px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    display: block;
+    text-align: left;
+    word-wrap: break-word;
+}
+
+.formDiv input,select{
+    font-size: 18px;
+}

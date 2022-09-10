@@ -1,0 +1,37 @@
+[ {
+  "firstName" : "Mihal",
+  "lastName" : "Sabadoš",
+  "jmbg" : "2405004646423",
+  "lbo" : "12345678100",
+  "date" : "30.09.2022.",
+  "duration" : 60,
+  "time" : "13:00",
+  "phoneNumber" : "0655193962"
+}, {
+  "firstName" : "Pera",
+  "lastName" : "Peric",
+  "jmbg" : "4564657541236",
+  "lbo" : "46465445198",
+  "date" : "30.09.2022.",
+  "duration" : 60,
+  "time" : "9:00",
+  "phoneNumber" : "0654215678"
+}, {
+  "firstName" : "Pera",
+  "lastName" : "Peric",
+  "jmbg" : "4564657541236",
+  "lbo" : "46465445198",
+  "date" : "22.09.2022.",
+  "duration" : 60,
+  "time" : "13:00",
+  "phoneNumber" : "0654215678"
+}, {
+  "firstName" : "Pera",
+  "lastName" : "Peric",
+  "jmbg" : "4564657541236",
+  "lbo" : "46465445198",
+  "date" : "09.09.2022.",
+  "duration" : 60,
+  "time" : "15:00",
+  "phoneNumber" : "0654215678"
+} ]
