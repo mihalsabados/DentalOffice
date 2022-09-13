@@ -3,9 +3,9 @@ import "./newAppointment.css"
 import Button from '@mui/material/Button';
 import CreateIcon from '@mui/icons-material/Create';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { api } from './service';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { Alert, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Snackbar } from '@mui/material';
+import api from './service';
 
 const NewAppointment = () => {
   const navigate = useNavigate();
@@ -65,7 +65,7 @@ const NewAppointment = () => {
       duration:duration
     };
     console.log(data);
-    api.post("getFreeTime", data).then(res=>{
+    api.post("dentalOffice/getFreeTime", data).then(res=>{
       console.log(res.data);
       setAvailableTimes(res.data);
       setFormData(prevState =>({
@@ -80,7 +80,7 @@ const NewAppointment = () => {
     console.log('USAOOO');
     console.log(formData);
 
-    api.post("createAppointment", formData).then(res=>{
+    api.post("dentalOffice/createAppointment", formData).then(res=>{
       console.log(res.data);
       console.log("USPESNO");
       setOpenDialog(true);
@@ -119,7 +119,7 @@ const NewAppointment = () => {
             </DialogContentText>
             </DialogContent>
             <DialogActions>
-            <Button onClick={()=>navigate("/")} autoFocus>
+            <Button onClick={()=>navigate("/homepage")} autoFocus>
                 Ok
             </Button>
             </DialogActions>

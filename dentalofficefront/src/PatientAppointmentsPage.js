@@ -8,7 +8,8 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import {FaTeeth} from 'react-icons/fa';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Alert, Avatar, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Snackbar } from '@mui/material';
-import { api } from './service';
+import api from './service';
+
 
 const PatientAppointmentPage = ({props}) => {
     const navigate = useNavigate();
@@ -30,7 +31,7 @@ const PatientAppointmentPage = ({props}) => {
 
 
     const goToMyHomepage = ()=>{
-        navigate('/');
+        navigate('/homepage');
     }
 
     const canCancel = (appointment) =>{
@@ -63,7 +64,7 @@ const PatientAppointmentPage = ({props}) => {
     const cancelAppointment = () =>{
         handleClose();
         console.log(selectedAppointment);
-        api.delete("cancelAppointment", {data:selectedAppointment}).then(res=>{
+        api.delete("dentalOffice/cancelAppointment", {data:selectedAppointment}).then(res=>{
             console.log("USPESNO OBRISAN");
             let appointmentsList = appointments.filter(item => item.date !== selectedAppointment.date || item.time !== selectedAppointment.time);
             setAppointments(appointmentsList);

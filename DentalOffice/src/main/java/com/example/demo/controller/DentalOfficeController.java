@@ -4,13 +4,12 @@ import com.example.demo.DTO.DateAndDurationDTO;
 import com.example.demo.model.Appointment;
 import com.example.demo.service.DentalOfficeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@CrossOrigin
+@CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/dentalOffice")
 public class DentalOfficeController {
@@ -25,7 +24,7 @@ public class DentalOfficeController {
     public DentalOfficeController() {
     }
 
-    @GetMapping("/getAppointments")
+    @GetMapping("/getAllAppointments")
     public ResponseEntity<List<Appointment>> getAppointments(){
         List<Appointment> appointments = dentalOfficeService.getAllAppointments();
         return new ResponseEntity<>(appointments, HttpStatus.OK);
@@ -44,16 +43,6 @@ public class DentalOfficeController {
         return HttpStatus.CONFLICT;
     }
 
-    @PostMapping("/checkDentistId")
-    public ResponseEntity<List<Appointment>> checkDentistId(@RequestBody String id){
-        boolean goodId = dentalOfficeService.checkDentistId(id);
-        if(goodId){
-            List<Appointment> dentistAppointments = dentalOfficeService.getAllAppointments();
-            return new ResponseEntity<>(dentistAppointments, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
-    }
-
     @PostMapping("/checkPatientsJmbg")
     public ResponseEntity<List<Appointment>> checkPatientsJmbg(@RequestBody String jmbg){
         List<Appointment> patientAppointments = dentalOfficeService.checkPatientsJmbg(jmbg);
@@ -62,6 +51,7 @@ public class DentalOfficeController {
         return new ResponseEntity<>(patientAppointments, HttpStatus.OK);
     }
 
+    @CrossOrigin
     @DeleteMapping("/cancelAppointment")
     public HttpStatus cancelAppointment(@RequestBody Appointment appointment){
         boolean successfull = dentalOfficeService.cancelAppointment(appointment);

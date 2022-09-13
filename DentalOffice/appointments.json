@@ -34,4 +34,22 @@
   "duration" : 60,
   "time" : "15:00",
   "phoneNumber" : "0654215678"
+}, {
+  "firstName" : "Mihal",
+  "lastName" : "Sabadoš",
+  "jmbg" : "2405004646423",
+  "lbo" : "12345678100",
+  "date" : "22.09.2022.",
+  "duration" : 30,
+  "time" : "14:30",
+  "phoneNumber" : "0655193962"
+}, {
+  "firstName" : "Mihal",
+  "lastName" : "Sabadoš",
+  "jmbg" : "2405004646423",
+  "lbo" : "12345678100",
+  "date" : "14.09.2022.",
+  "duration" : 30,
+  "time" : "9:30",
+  "phoneNumber" : "0655193962"
 } ]

@@ -1,6 +1,7 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.Appointment;
+import com.example.demo.model.User;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,14 +20,8 @@ public class DentalOfficeRepo {
     ObjectMapper objectMapper = new ObjectMapper();
 
     public List<Appointment> readAllAppointments() throws IOException {
-//        List<Appointment> appointments = objectMapper.readValue(loadFileWithSpring(), new TypeReference<List<Appointment>>(){});
         List<Appointment> appointments = objectMapper.readValue(new File("appointments.json"), new TypeReference<List<Appointment>>(){});
         return appointments;
-    }
-
-    public File loadFileWithSpring()
-            throws FileNotFoundException {
-        return ResourceUtils.getFile("classpath:static/appointments.json");
     }
 
     public void createAppointment(Appointment appointment) throws IOException {
@@ -37,7 +32,7 @@ public class DentalOfficeRepo {
     }
 
     public String getDentistKey() throws FileNotFoundException {
-        File file = new File("dentistId.txt");
+        File file = new File("dentistCredentials.json");
         Scanner reader = new Scanner(file);
         String Id = reader.nextLine();
         reader.close();
@@ -48,5 +43,12 @@ public class DentalOfficeRepo {
     public void saveAppointments(List<Appointment> allAppointments) throws IOException {
         ObjectWriter writer = objectMapper.writer(new DefaultPrettyPrinter());
         writer.writeValue(new File("appointments.json"),allAppointments);
+    }
+
+    public User findByUsername(String username) throws IOException {
+        User dentist = objectMapper.readValue(new File("dentistCredentials.json"), new TypeReference<User>() {});
+        if(dentist.getUsername().equals(username))
+            return dentist;
+        return null;
     }
 }

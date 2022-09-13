@@ -6,8 +6,8 @@ import HomeIcon from '@mui/icons-material/Home';
 import CheckIcon from '@mui/icons-material/Check';
 import {FaTeeth} from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import { api } from './service';
 import { Alert, Snackbar } from '@mui/material';
+import api from './service';
 
 const IdentityCheckPage = () => {
     const navigate = useNavigate();
@@ -17,18 +17,12 @@ const IdentityCheckPage = () => {
     const [alertMessage, setAlertMessage] = useState("There is no matching JMBG or ID!");
 
     const checkIfIdExist=()=>{
-        console.log("Checking dentists");
-        api.post("checkDentistId", id).then(res=>{
-            console.log(res.data);
-            navigate("/dentistAppointments", {state:{appointments:res.data}});
+        console.log("Checking patients");
+        api.post("dentalOffice/checkPatientsJmbg", id).then(results=>{
+            console.log(results.data);
+            navigate("/patientAppointments", {state:{appointments:results.data}});
         }).catch(res=>{
-            console.log("Checking patients");
-            api.post("checkPatientsJmbg", id).then(results=>{
-                console.log(results.data);
-                navigate("/patientAppointments", {state:{appointments:results.data}});
-            }).catch(res=>{
-                setOpenAlert(true);
-            })
+            setOpenAlert(true);
         })
     }
 

@@ -10,8 +10,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Alert, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, IconButton, Paper, Snackbar, TextField } from '@mui/material';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import { Scheduler, DayView, Appointments, WeekView, Toolbar, ViewSwitcher, DateNavigator, TodayButton, AppointmentTooltip} from '@devexpress/dx-react-scheduler-material-ui';
-import { api } from './service';
+
 import { Cancel, Close } from '@mui/icons-material';
+import api from './service';
+import { getCurrentUser } from './authService';
 
 const DentistAppointmentPage = ({props}) => {
     const navigate = useNavigate();
@@ -22,7 +24,8 @@ const DentistAppointmentPage = ({props}) => {
     const [alertMessage, setAlertMessage] = useState("Successfuly Canceled Appointment!");
     const [openDialog, setOpenDialog] = React.useState(false);
     const [selectedAppointment, setSelectedAppointment] = useState(null);
-    const [inputId, setInputId] = useState(null);
+    const [inputPassword, setInputPassword] = useState(null);
+    const [badPassword, setBadPassword] = useState(false);
 
     const [schedulerData, setSchedulerData] = useState(null);
     const [appointTooltipVisible, setAppointTooltipVisible] = useState(false);
@@ -39,10 +42,16 @@ const DentistAppointmentPage = ({props}) => {
 
     useEffect(()=>{
         console.log("USAO U DENTIST");
-        console.log(location.state);
-        setAppointmentsList(location.state.appointments);
-        console.log(currentDate);
-        resetSchedulerData(location.state.appointments);
+        // console.log(location.state);
+        // setAppointmentsList(location.state.appointments);
+        // console.log(currentDate);
+        // resetSchedulerData(location.state.appointments);
+        api.get("dentalOffice/getAllAppointments").then(res=>{
+            console.log(res.data);
+            setAppointmentsList(res.data);
+            resetSchedulerData(res.data);
+        })
+
     },[])
 
     const resetSchedulerData=(appointments)=>{
@@ -92,21 +101,23 @@ const DentistAppointmentPage = ({props}) => {
     }
 
     const checkId = () =>{
-        api.post("checkDentistId", inputId).then(res=>{
-            console.log(res.data);
+        let user = getCurrentUser();
+        user.password = inputPassword;
+        console.log(user);
+        api.post("auth/checkDentistPassword", user).then(res=>{
             cancelAppointment();
         }).catch(res=>{
             setOpenAlert(true);
             setAlertSeverity("warning");
-            setAlertMessage("Bad ID!");
+            setAlertMessage("Bad Password!");
+            setBadPassword(true);
         })
-
     }
 
     const cancelAppointment = () =>{
         handleClose();
         console.log(selectedAppointment);
-        api.delete("cancelAppointment", {data:selectedAppointment}).then(res=>{
+        api.delete("dentalOffice/cancelAppointment", {data:selectedAppointment}).then(res=>{
             console.log("USPESNO OBRISAN");
             let appointments = appointmentsList.filter(item => item.date !== selectedAppointment.date || item.time !== selectedAppointment.time);
             setAppointmentsList(appointments);
@@ -189,17 +200,18 @@ const DentistAppointmentPage = ({props}) => {
             </DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-description">
-                    To cancel this appointment, please enter your ID.
+                    To cancel this appointment, please enter your password.
                 </DialogContentText>
                 <TextField
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="ID"
+                    label="Password"
                     type="password"
                     fullWidth
+                    error={badPassword}
                     variant="standard"
-                    onChange={(e)=>setInputId(e.target.value)}
+                    onChange={(e)=>{setInputPassword(e.target.value); setBadPassword(false);}}
                 />
             </DialogContent>
             <DialogActions>

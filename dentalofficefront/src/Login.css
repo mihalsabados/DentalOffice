@@ -1,0 +1,21 @@
+.containerDivLogIn{
+    width: 400px;
+    padding: 30px;
+    background-color: rgba(216, 220, 221, 0.9);
+    margin: 10% auto;
+    border: 5px solid black;
+    border-radius: 10px;
+}
+
+.containerDiv h1{
+    color: rgb(0, 0, 0);
+    margin-top: 0px;
+}
+
+.buttonDiv{
+    margin-block: 20px;
+}
+
+.customButton{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
